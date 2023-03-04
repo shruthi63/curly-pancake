@@ -2,7 +2,6 @@ import urllib.request
 import streamlit as st
 import pandas as pd
 import joblib
-import numpy as np
 
 url = 'https://github.com/shruthi63/curly-pancake/blob/main/model.joblib?raw=true'
 filename = 'model.joblib'
@@ -29,9 +28,9 @@ def get_input_df():
     input_dict = {}
     for field in input_fields:
         if field.startswith('plan_option'):
-            input_dict[field] = st.slider(field, *plan_option_range, value=default_values[field])
+            input_dict[field] = st.slider(field.replace('_', ' ').title(), *plan_option_range, value=default_values[field])
         else:
-            input_dict[field] = st.text_input(field, default_values[field])
+            input_dict[field] = st.text_input(field.replace('_', ' ').title(), default_values[field])
     return pd.DataFrame([input_dict])
 
 # Create the Streamlit app
@@ -39,17 +38,6 @@ st.title('Cancellation Flag Predictor')
 
 # Get user input values
 input_df = get_input_df()
-
-# If no input was provided, use the provided test example
-if input_df.empty:
-    input_dict = {
-        'vendor_id': '29177',
-        'client_key': '1834049',
-        'appointment_number': '2758983',
-        'plan_option1_deductible': 3224876,
-        'plan_option1_maximum_out_of_pocket': 0.0
-    }
-    input_df = pd.DataFrame([input_dict])
 
 # Make predictions using the machine learning model
 prediction = model.predict(input_df)
