@@ -5,7 +5,7 @@ import joblib
 import numpy as np
 
 url = 'https://github.com/shruthi63/curly-pancake/blob/main/model2.joblib?raw=true'
-filename = 'model.joblib'
+filename = 'model2.joblib'
 urllib.request.urlretrieve(url, filename)
 model = joblib.load(filename)
 
