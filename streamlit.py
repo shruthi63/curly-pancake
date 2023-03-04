@@ -42,6 +42,8 @@ input_df = get_input_df()
 if st.button('Submit'):
     # Make predictions using the machine learning model
     prediction = model.predict(input_df)
-
+    if(prediction[0]==0):
     # Display the predicted cancellation flag value
-    st.write('Predicted Cancellation Flag:', prediction[0])
+        st.write('Predicted Cancellation Flag:', 'Authorization/Appointment will be claimed')
+    else:
+         st.write('Predicted Cancellation Flag:', 'Likely to get cancelled')
