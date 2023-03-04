@@ -3,8 +3,10 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-model_path = "https://github.com/shruthi63/curly-pancake/blob/main/model.joblib?raw=true"
-model = joblib.load(model_path)
+url = 'https://github.com/shruthi63/curly-pancake/blob/main/model.joblib?raw=true'
+filename = 'model.joblib'
+urllib.request.urlretrieve(url, filename)
+model = joblib.load(filename)
 
 # Define the input fields
 input_fields = ['vendor_id', 'client_key', 'appointment_number', 'plan_option1_deductible', 'plan_option1_maximum_out_of_pocket']
