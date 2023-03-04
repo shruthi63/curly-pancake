@@ -28,19 +28,24 @@ def get_input_df():
     input_dict = {}
     for field in input_fields:
         if field.startswith('plan_option'):
-            input_dict[field] = st.slider(field.replace('_', ' ').title(), *plan_option_range, value=default_values[field])
+            input_dict[field] = st.slider(f"{field} ({default_values[field]})", *plan_option_range, value=default_values[field])
         else:
-            input_dict[field] = st.text_input(field.replace('_', ' ').title(), default_values[field])
-    return pd.DataFrame([input_dict])
+            input_dict[field] = st.text_input(field, default_values[field])
+    input_df = pd.DataFrame([input_dict])
+    return input_df
 
 # Create the Streamlit app
 st.title('Cancellation Flag Predictor')
 
 # Get user input values
-input_df = get_input_df()
+if st.button('Predict'):
+    input_df = get_input_df()
 
-# Make predictions using the machine learning model
-prediction = model.predict(input_df)
+    # Make predictions using the machine learning model
+    prediction = model.predict(input_df)
 
-# Display the predicted cancellation flag value
-st.write('Predicted Cancellation Flag:', prediction[0])
+    # Display the predicted cancellation flag value
+    st.write('Predicted Cancellation Flag:', prediction[0])
+
+# Add a test example to prefill the input fields
+st.write('Test Example:', 'vendor_id=29177, client_key=1834049, appointment_number=2758983, plan_option1_deductible=3224876, plan_option1_maximum_out_of_pocket=0.0, 1500.0')
