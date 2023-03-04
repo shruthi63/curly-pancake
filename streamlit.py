@@ -17,9 +17,9 @@ plan_option_range = (0, 10000)
 
 # Define the default values for the input fields
 default_values = {
-    'Vendor ID': '',
-    'Client Key': '',
-    'Appointment Number': '',
+    'Vendor ID': '1834049',
+    'Client Key': '1834049',
+    'Appointment Number': '2758983',
     'Plan Option 1 Deductible': 5000,
     'Plan Option 1 Maximum Out of Pocket': 10000
 }
