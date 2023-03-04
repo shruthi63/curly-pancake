@@ -36,22 +36,10 @@ def get_input_df():
 
 # Create the Streamlit app
 st.title('Cancellation Flag Predictor')
-
+# Show the input fields by default
+input_df = get_input_df()
 # Get user input values when submit button is clicked
 if st.button('Submit'):
-    input_df = get_input_df()
-
-    # If no input was provided, use the provided test example
-    if input_df.empty:
-        input_dict = {
-            'vendor_id': '29177',
-            'client_key': '1834049',
-            'appointment_number': '2758983',
-            'plan_option1_deductible': 3224876,
-            'plan_option1_maximum_out_of_pocket': 0.0
-        }
-        input_df = pd.DataFrame([input_dict])
-
     # Make predictions using the machine learning model
     prediction = model.predict(input_df)
 
