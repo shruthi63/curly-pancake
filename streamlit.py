@@ -28,7 +28,7 @@ default_values = {
 def get_input_df():
     input_dict = {}
     for field in input_fields:
-        if field.startswith('Plan Option'):
+        if field.startswith('plan_option'):
             input_dict[field] = st.slider(field, *plan_option_range, value=default_values[field])
         else:
             input_dict[field] = st.text_input(field, default_values[field])
