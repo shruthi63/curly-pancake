@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 
 # Load the pickled machine learning model
-with open('https://github.com/shruthi63/curly-pancake/new/main/ model.pkl', 'rb') as f:
+with open('https://github.com/shruthi63/curly-pancake/blob/main/model.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # Define the input fields
