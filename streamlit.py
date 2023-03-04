@@ -1,16 +1,10 @@
 import urllib.request
 import streamlit as st
 import pandas as pd
-import pickle
-# Download the pickle file from GitHub
-url = 'https://github.com/shruthi63/curly-pancake/blob/main/model.pkl'
-filename = 'model.pkl'
-urllib.request.urlretrieve(url, filename)
+import joblib
 
-# Load the model
-with open(filename, 'rb') as f:
-    model = pickle.load(f)
-
+model_path = "https://github.com/shruthi63/curly-pancake/blob/main/model.joblib?raw=true"
+model = joblib.load(model_path)
 
 # Define the input fields
 input_fields = ['vendor_id', 'client_key', 'appointment_number', 'plan_option1_deductible', 'plan_option1_maximum_out_of_pocket']
