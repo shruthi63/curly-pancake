@@ -17,18 +17,18 @@ plan_option_range = (0, 10000)
 
 # Define the default values for the input fields
 default_values = {
-    'vendor_id': '',
-    'client_key': '',
-    'appointment_number': '',
-    'plan_option1_deductible': 5000,
-    'plan_option1_maximum_out_of_pocket': 10000
+    'Vendor ID': '',
+    'Client Key': '',
+    'Appointment Number': '',
+    'Plan Option 1 Deductible': 5000,
+    'Plan Option 1 Maximum Out of Pocket': 10000
 }
 
 # Create a function to get user input values as a DataFrame
 def get_input_df():
     input_dict = {}
     for field in input_fields:
-        if field.startswith('plan_option'):
+        if field.startswith('Plan Option'):
             input_dict[field] = st.slider(field, *plan_option_range, value=default_values[field])
         else:
             input_dict[field] = st.text_input(field, default_values[field])
@@ -37,22 +37,23 @@ def get_input_df():
 # Create the Streamlit app
 st.title('Cancellation Flag Predictor')
 
-# Get user input values
-input_df = get_input_df()
+# Get user input values when submit button is clicked
+if st.button('Submit'):
+    input_df = get_input_df()
 
-# If no input was provided, use the provided test example
-if input_df.empty:
-    input_dict = {
-        'vendor_id': '29177',
-        'client_key': '1834049',
-        'appointment_number': '2758983',
-        'plan_option1_deductible': 3224876,
-        'plan_option1_maximum_out_of_pocket': 0.0
-    }
-    input_df = pd.DataFrame([input_dict])
+    # If no input was provided, use the provided test example
+    if input_df.empty:
+        input_dict = {
+            'Vendor ID': '29177',
+            'Client Key': '1834049',
+            'Appointment Number': '2758983',
+            'Plan Option 1 Deductible': 3224876,
+            'Plan Option 1 Maximum Out of Pocket': 0.0
+        }
+        input_df = pd.DataFrame([input_dict])
 
-# Make predictions using the machine learning model
-prediction = model.predict(input_df)
+    # Make predictions using the machine learning model
+    prediction = model.predict(input_df)
 
-# Display the predicted cancellation flag value
-st.write('Predicted Cancellation Flag:', prediction[0])
+    # Display the predicted cancellation flag value
+    st.write('Predicted Cancellation Flag:', prediction[0])
