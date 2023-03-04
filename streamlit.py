@@ -1,10 +1,16 @@
+import urllib.request
 import streamlit as st
 import pandas as pd
 import pickle
+# Download the pickle file from GitHub
+url = 'https://github.com/shruthi63/curly-pancake/blob/main/model.pkl'
+filename = 'model.pkl'
+urllib.request.urlretrieve(url, filename)
 
-# Load the pickled machine learning model
-with open('https://github.com/shruthi63/curly-pancake/blob/main/model.pkl', 'rb') as f:
+# Load the model
+with open(filename, 'rb') as f:
     model = pickle.load(f)
+
 
 # Define the input fields
 input_fields = ['vendor_id', 'client_key', 'appointment_number', 'plan_option1_deductible', 'plan_option1_maximum_out_of_pocket']
