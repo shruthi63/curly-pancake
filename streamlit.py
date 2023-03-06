@@ -36,9 +36,9 @@ def get_input_df():
     input_dict = {}
     for i, field in enumerate(input_fields):
         if field.startswith('plan_option'):
-            input_dict[field] = st.slider(field, *plan_option_range, value=default_values[field], key=f"{field}_{i}")
+            input_dict[field] = st.slider(field, *plan_option_range, value=default_values[field], key=field+'_slider')
         elif field == 'auth_status':
-            auth_status = st.selectbox(field, ['Claim Received', 'Approved', 'Cancelled', 'Submitted For Cancellation'], index=0, key=f"{field}_{i}")
+            auth_status = st.selectbox(field, ['Claim Received', 'Approved', 'Cancelled', 'Submitted For Cancellation'], index=0, key=field+'_selectbox')
             # Map the auth_status value to a numerical value
             if auth_status == 'Cancelled':
                 input_dict[field] = 1
@@ -46,10 +46,11 @@ def get_input_df():
                 input_dict[field] = 0
             elif auth_status == 'Claim Received':
                 input_dict[field] = 2
+           
             else:
                 input_dict[field] = 3
         else:
-            input_dict[field] = st.text_input(field, default_values[field], key=f"{field}_{i}")
+            input_dict[field] = st.text_input(field, default_values[field], key=field+'_text_input')
     return pd.DataFrame([input_dict])
 
 # Create the Streamlit app
