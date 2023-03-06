@@ -12,7 +12,7 @@ filename = 'model2.joblib'
 
 try:
     urllib.request.urlretrieve(url, filename)
-    model = joblib.load(filename)
+    model2 = joblib.load(filename)
 except:
     st.error("Failed to download model. Please check the URL or try again later.")
     st.stop()
@@ -71,7 +71,7 @@ if st.button('Submit'):
             input_df = pd.DataFrame([input_dict])
 
         # Make predictions using the machine learning model
-        prediction = model.predict(input_df)
+        prediction = model2.predict(input_df)
 
         # Display the predicted cancellation flag value
         st.write('Predicted Cancellation Flag:', prediction[0])
