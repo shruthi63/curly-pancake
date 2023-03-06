@@ -46,10 +46,9 @@ def get_input_df():
                 input_dict[field] = 0
             elif auth_status == 'Claim Received':
                 input_dict[field] = 2
-            elif auth_status == 'Submitted For Cancellation':
-                input_dict[field] = 3
+           
             else:
-                input_dict[field] = ''
+                input_dict[field] = 3
         else:
             input_dict[field] = st.text_input(field, default_values[field])
     return pd.DataFrame([input_dict])
@@ -65,7 +64,7 @@ if st.button('Submit'):
         # If no input was provided, use the provided test example
         if input_df.empty:
             input_dict = {
-                'auth_status': 'Claim Received',
+                'auth_status': 1,
                 'member_health_plan_id': 'HP000001',
                 'primary_cpt': 'A123',
                 'vendor_id': '29177',
