@@ -58,7 +58,7 @@ st.title('Cancellation Flag Predictor')
 input_df = get_input_df()
 # Get user input values when submit button is clicked
 if st.button('Submit'):
-    try:
+    
         input_df = get_input_df()
 
         # If no input was provided, use the provided test example
@@ -80,5 +80,4 @@ if st.button('Submit'):
 
         # Display the predicted cancellation flag value
         st.write('Predicted Cancellation Flag:', prediction[0])
-    except:
-        st.write('Error: Please enter valid input values.')
+
