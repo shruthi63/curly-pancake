@@ -9,8 +9,13 @@ from sklearn.metrics import f1_score
 
 url = 'https://github.com/shruthi63/curly-pancake/blob/main/model2.joblib?raw=true'
 filename = 'model2.joblib'
-urllib.request.urlretrieve(url, filename)
-model = joblib.load(filename)
+
+try:
+    urllib.request.urlretrieve(url, filename)
+    model = joblib.load(filename)
+except:
+    st.error("Failed to download model. Please check the URL or try again later.")
+    st.stop()
 
 # Define the input fields
 input_fields = ['auth_status', 'member_health_plan_id', 'primary_cpt', 'vendor_id', 'plan_option1_coinsurance_member',
@@ -46,29 +51,29 @@ def get_input_df():
 # Create the Streamlit app
 st.title('Cancellation Flag Predictor')
 
-# Display the input fields by default
-input_df = get_input_df()
-
 # Get user input values when submit button is clicked
 if st.button('Submit'):
-    input_df = get_input_df()
+    try:
+        input_df = get_input_df()
 
-    # If no input was provided, use the provided test example
-    if input_df.empty:
-        input_dict = {
-            'auth_status': 'Claim Received',
-            'member_health_plan_id': 'HP000001',
-            'primary_cpt': 'A123',
-            'vendor_id': '29177',
-            'appointment_number': '2758983',
-            'plan_option1_coinsurance_member': 20,
-            'plan_option1_deductible': 3224876,
-            'plan_option1_maximum_out_of_pocket': 0.0
-        }
-        input_df = pd.DataFrame([input_dict])
+        # If no input was provided, use the provided test example
+        if input_df.empty:
+            input_dict = {
+                'auth_status': 'Claim Received',
+                'member_health_plan_id': 'HP000001',
+                'primary_cpt': 'A123',
+                'vendor_id': '29177',
+                'appointment_number': '2758983',
+                'plan_option1_coinsurance_member': 20,
+                'plan_option1_deductible': 3224876,
+                'plan_option1_maximum_out_of_pocket': 0.0
+            }
+            input_df = pd.DataFrame([input_dict])
 
-    # Make predictions using the machine learning model
-    prediction = model.predict(input_df)
+        # Make predictions using the machine learning model
+        prediction = model.predict(input_df)
 
-    # Display the predicted cancellation flag value
-    st.write('Predicted Cancellation Flag:', prediction[0])
+        # Display the predicted cancellation flag value
+        st.write('Predicted Cancellation Flag:', prediction[0])
+    except:
+        st.error("Failed to make predictions. Please check your inputs and try again.")
