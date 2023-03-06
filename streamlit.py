@@ -60,7 +60,7 @@ for field in input_fields:
         st.text_input(field, default_values[field])
 # Get user input values when submit button is clicked
 if st.button('Submit'):
-    try:
+   
         input_df = get_input_df()
 
         # If no input was provided, use the provided test example
