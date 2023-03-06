@@ -38,7 +38,7 @@ def get_input_df():
         if field.startswith('plan_option'):
             input_dict[field] = st.slider(field, *plan_option_range, value=default_values[field], key=f"{field}_{i}")
         elif field == 'auth_status':
-            auth_status = st.selectbox(field, ['Claim Received', 'Approved', 'Cancelled', 'Submitted For Cancellation', 'Progyny Cover Cost'], index=0, key=f"{field}_{i}")
+            auth_status = st.selectbox(field, ['Claim Received', 'Approved', 'Cancelled', 'Submitted For Cancellation'], index=0, key=f"{field}_{i}")
             # Map the auth_status value to a numerical value
             if auth_status == 'Cancelled':
                 input_dict[field] = 1
