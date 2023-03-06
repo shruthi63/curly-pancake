@@ -22,11 +22,11 @@ plan_option_range = (0, 10000)
 # Define the default values for the input fields
 default_values = {
     'auth_status': '',
-    'member_health_plan_id': '',
-    'primary_cpt': '',
-    'vendor_id': '',
+    'member_health_plan_id': '2755758',
+    'primary_cpt': '3778987',
+    'vendor_id': '2622571',
     'plan_option1_coinsurance_member': 20,
-    'appointment_number': '',
+    'appointment_number': 3121686,
     'plan_option1_deductible': 5000,
     'plan_option1_maximum_out_of_pocket': 10000
 }
