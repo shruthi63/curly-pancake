@@ -10,7 +10,7 @@ urllib.request.urlretrieve(url, filename)
 model = joblib.load(filename)
 
 # Define the input fields
-input_fields = ['vendor_id', 'client_key', 'appointment_number', 'plan_option1_deductible', 'plan_option1_maximum_out_of_pocket', 'member_health_plan_id']
+input_fields = ['vendor_id', 'client_key', 'appointment_number', 'plan_option1_deductible', 'plan_option1_maximum_out_of_pocket']
 
 # Define the range for the plan option input fields
 plan_option_range = (0, 10000)
@@ -22,7 +22,7 @@ default_values = {
     'appointment_number': '2758983',
     'plan_option1_deductible': 5000,
     'plan_option1_maximum_out_of_pocket': 10000,
-    'member_health_plan_id': 'HP000001'
+    
 }
 
 # Create a function to get user input values as a DataFrame
