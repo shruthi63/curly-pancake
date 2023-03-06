@@ -19,7 +19,7 @@ except:
 
 # Define the input fields
 input_fields = ['auth_status', 'member_health_plan_id', 'primary_cpt', 'vendor_id', 'plan_option1_coinsurance_member',
-                'appointment_number', 'plan_option1_deductible', 'plan_option1_maximum_out_of_pocket']
+                'appointment_number', 'client_key','plan_option1_deductible', 'plan_option1_maximum_out_of_pocket']
 
 # Define the range for the plan option input fields
 plan_option_range = (0, 10000)
@@ -33,7 +33,8 @@ default_values = {
     'plan_option1_coinsurance_member': 20,
     'appointment_number': '',
     'plan_option1_deductible': 5000,
-    'plan_option1_maximum_out_of_pocket': 10000
+    'plan_option1_maximum_out_of_pocket': 10000,
+    'client_key':''
 }
 
 # Create a function to get user input values as a DataFrame
@@ -70,6 +71,7 @@ if st.button('Submit'):
                 'plan_option1_coinsurance_member': 20,
                 'plan_option1_deductible': 3224876,
                 'plan_option1_maximum_out_of_pocket': 0.0
+                'client_key':'A23'
             }
             input_df = pd.DataFrame([input_dict])
 
