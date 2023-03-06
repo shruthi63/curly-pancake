@@ -70,7 +70,7 @@ if st.button('Submit'):
                 'appointment_number': '2758983',
                 'plan_option1_coinsurance_member': 20,
                 'plan_option1_deductible': 3224876,
-                'plan_option1_maximum_out_of_pocket': 0.0
+                'plan_option1_maximum_out_of_pocket': 0.0,
                 'client_key':'A23'
             }
             input_df = pd.DataFrame([input_dict])
