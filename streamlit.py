@@ -34,11 +34,11 @@ default_values = {
 # Create a function to get user input values as a DataFrame
 def get_input_df():
     input_dict = {}
-    for field in input_fields:
+    for i, field in enumerate(input_fields):
         if field.startswith('plan_option'):
-            input_dict[field] = st.slider(field, *plan_option_range, value=default_values[field])
+            input_dict[field] = st.slider(field, *plan_option_range, value=default_values[field], key=i)
         elif field == 'auth_status':
-            auth_status = st.selectbox(field, ['Claim Received', 'Approved', 'Cancelled', 'Submitted For Cancellation', 'Progyny Cover Cost'], index=0)
+            auth_status = st.selectbox(field, ['Claim Received', 'Approved', 'Cancelled', 'Submitted For Cancellation', 'Progyny Cover Cost'], index=0, key=i)
             # Map the auth_status value to a numerical value
             if auth_status == 'Cancelled':
                 input_dict[field] = 1
@@ -46,19 +46,19 @@ def get_input_df():
                 input_dict[field] = 0
             elif auth_status == 'Claim Received':
                 input_dict[field] = 2
+           
             else:
                 input_dict[field] = 3
         else:
-            input_dict[field] = st.text_input(field, default_values[field])
+            input_dict[field] = st.text_input(field, default_values[field], key=i)
     return pd.DataFrame([input_dict])
 
 # Create the Streamlit app
 st.title('Cancellation Flag Predictor')
 input_df = get_input_df()
-
 # Get user input values when submit button is clicked
 if st.button('Submit'):
-    try:
+    
         input_df = get_input_df()
 
         # If no input was provided, use the provided test example
@@ -80,5 +80,3 @@ if st.button('Submit'):
 
         # Display the predicted cancellation flag value
         st.write('Predicted Cancellation Flag:', prediction[0])
-    except Exception as e:
-        st.write('Error:', e)
