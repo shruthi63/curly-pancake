@@ -22,11 +22,11 @@ plan_option_range = (0, 10000)
 # Define the default values for the input fields
 default_values = {
     'auth_status': '',
-    'member_health_plan_id': '2755758',
-    'primary_cpt': '3778987',
-    'vendor_id': '2622571',
+    'member_health_plan_id': '',
+    'primary_cpt': '',
+    'vendor_id': '',
     'plan_option1_coinsurance_member': 20,
-    'appointment_number': 3121686,
+    'appointment_number': '',
     'plan_option1_deductible': 5000,
     'plan_option1_maximum_out_of_pocket': 10000
 }
@@ -36,7 +36,7 @@ def get_input_df():
     input_dict = {}
     for i, field in enumerate(input_fields):
         if field.startswith('plan_option'):
-            input_dict[field] = st.slider(field, *plan_option_range, value=default_values[field], key=field+'_slider')
+            input_dict[field] = st.slider(field, *plan_option_range, value=default_values[field], key=field)
         elif field == 'auth_status':
             auth_status = st.selectbox(field, ['Claim Received', 'Approved', 'Cancelled', 'Submitted For Cancellation'], index=0, key=field+'_selectbox')
             # Map the auth_status value to a numerical value
@@ -46,11 +46,10 @@ def get_input_df():
                 input_dict[field] = 0
             elif auth_status == 'Claim Received':
                 input_dict[field] = 2
-           
             else:
                 input_dict[field] = 3
         else:
-            input_dict[field] = st.text_input(field, default_values[field], key=field+'_text_input')
+            input_dict[field] = st.text_input(field, default_values[field], key=field)
     return pd.DataFrame([input_dict])
 
 # Create the Streamlit app
