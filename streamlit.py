@@ -51,6 +51,9 @@ def get_input_df():
 # Create the Streamlit app
 st.title('Cancellation Flag Predictor')
 
+# Display the input fields
+input_df = get_input_df()
+
 # Get user input values when submit button is clicked
 if st.button('Submit'):
     try:
