@@ -33,32 +33,25 @@ def get_input_df():
             # Add slider and text box for plan option input fields
             col1, col2 = st.beta_columns(2)
             with col1:
-                st.write(field.replace('_', ' ').title(), key=field)
+                st.write(field.replace('_', ' ').title())
             with col2:
-                input_value = st.text_input('', default_values[field], key=field+"_text")
-                slider_value = st.slider('', *plan_option_range, value=int(input_value), key=field+"_slider")
+                input_value = st.text_input('', default_values[field])
+                slider_value = st.slider('', *plan_option_range, value=int(input_value))
                 input_dict[field] = slider_value
         else:
-            input_dict[field] = st.text_input(field.replace('_', ' ').title(), default_values[field], key=field)
+            input_dict[field] = st.text_input(field.replace('_', ' ').title(), default_values[field])
     return pd.DataFrame([input_dict])
 
 # Create the Streamlit app
 st.title('Claim Predictor')
 # Show the input fields by default
-show_predictions = False
-if st.button('Submit', key="submit_button"):
-    show_predictions = True
-    # Get user input values when submit button is clicked
-    input_df = get_input_df()
+input_df = get_input_df()
+# Get user input values when submit button is clicked
+if st.button('Submit'):
     # Make predictions using the machine learning model
     prediction = model.predict(input_df)
-    # Display the predicted cancellation flag value
     if(prediction[0]==0):
-        predicted_flag = 'Authorization/Appointment will be claimed'
+        # Display the predicted cancellation flag value
+        st.write('Predicted Cancellation Flag:', 'Authorization/Appointment will be claimed')
     else:
-        predicted_flag = 'Likely to get cancelled'
-
-# Display the input fields and predicted cancellation flag (if submitted)
-input_df = get_input_df()
-if show_predictions:
-    st.write('Predicted Cancellation Flag:', predicted_flag)
+        st.write('Predicted Cancellation Flag:', 'Likely to get cancelled')
