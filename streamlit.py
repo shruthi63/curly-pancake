@@ -30,15 +30,29 @@ def get_input_df():
     input_dict = {}
     for field in input_fields:
         if field.startswith('plan_option'):
-            # Show both slider and text input options for plan option fields
-            col1, col2 = st.beta_columns(2)
-            with col1:
-                input_dict[field] = st.slider(field.replace('_', ' ').title(), *plan_option_range, value=default_values[field])
-            with col2:
-                input_dict[field] = st.text_input(field.replace('_', ' ').title(), value=default_values[field], type='number')
+            # Use a slider for the plan option input
+            value = st.slider(
+                field.replace('_', ' ').title(), 
+                *plan_option_range, 
+                value=default_values[field]
+            )
+            # Use a text box for the plan option input, and update the slider value if changed
+            value = st.text_input(
+                field.replace('_', ' ').title(), 
+                value=value, 
+                type='number'
+            )
+            # Update the default value for the input field
+            default_values[field] = value
         else:
-            input_dict[field] = st.text_input(field.replace('_', ' ').title(), default_values[field])
+            # Use a text box for non-plan-option inputs
+            value = st.text_input(
+                field.replace('_', ' ').title(), 
+                value=default_values[field]
+            )
+        input_dict[field] = value
     return pd.DataFrame([input_dict])
+
 
 # Create the Streamlit app
 st.title('Claim Predictor')
