@@ -40,19 +40,20 @@ def get_input_df():
                     input_dict[field] = slider_value
             else:
                 input_dict[field] = st.text_input(field.replace('_', ' ').title(), default_values[field])
+        submit_button = st.form_submit_button(label='Submit')
     return pd.DataFrame([input_dict])
-
 
 # Create the Streamlit app
 st.title('Claim Predictor')
+
 # Show the input fields by default
 input_df = get_input_df()
+
 # Get user input values when submit button is clicked
-if st.button('Predict'):
+if st.button('Submit'):
     # Make predictions using the machine learning model
     prediction = model.predict(input_df)
-    if(prediction[0]==0):
-        # Display the predicted cancellation flag value
+    if prediction[0] == 0:
         st.write('Predicted Cancellation Flag:', 'Authorization/Appointment will be claimed')
     else:
         st.write('Predicted Cancellation Flag:', 'Likely to get cancelled')
