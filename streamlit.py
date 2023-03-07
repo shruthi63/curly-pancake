@@ -43,7 +43,7 @@ def get_input_df():
     return pd.DataFrame([input_dict])
 
 # Create the Streamlit app
-st.title('Claim Predictor')
+st.title('Progyny Claim Predictor 🩺')
 # Show the input fields by default
 input_df = get_input_df()
 # Get user input values when submit button is clicked
