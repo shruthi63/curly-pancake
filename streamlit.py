@@ -28,19 +28,21 @@ default_values = {
 # Create a function to get user input values as a DataFrame
 def get_input_df():
     input_dict = {}
-    for field in input_fields:
-        if field.startswith('plan_option'):
-            # Add slider and text box for plan option input fields
-            col1, col2 = st.beta_columns(2)
-            with col1:
-                st.write(field.replace('_', ' ').title())
-            with col2:
-                input_value = st.text_input('', default_values[field])
-                slider_value = st.slider('', *plan_option_range, value=int(input_value))
-                input_dict[field] = slider_value
-        else:
-            input_dict[field] = st.text_input(field.replace('_', ' ').title(), default_values[field])
+    with st.form(key='input_form'):
+        for field in input_fields:
+            if field.startswith('plan_option'):
+                col1, col2 = st.beta_columns(2)
+                with col1:
+                    st.write(field.replace('_', ' ').title())
+                with col2:
+                    input_value = st.text_input('', default_values[field])
+                    slider_value = st.slider('', *plan_option_range, value=int(input_value))
+                    input_dict[field] = slider_value
+            else:
+                input_dict[field] = st.text_input(field.replace('_', ' ').title(), default_values[field])
+        submit_button = st.form_submit_button(label='Submit')
     return pd.DataFrame([input_dict])
+
 
 # Create the Streamlit app
 st.title('Claim Predictor')
