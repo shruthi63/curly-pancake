@@ -44,26 +44,21 @@ def get_input_df():
 
 # Create the Streamlit app
 st.title('Claim Predictor')
-
 # Show the input fields by default
-input_df = get_input_df()
-
-# Get user input values when submit button is clicked
-if not input_df.empty:
+show_predictions = False
+if st.button('Submit'):
+    show_predictions = True
+    # Get user input values when submit button is clicked
+    input_df = get_input_df()
     # Make predictions using the machine learning model
     prediction = model.predict(input_df)
+    # Display the predicted cancellation flag value
     if(prediction[0]==0):
-        # Display the predicted cancellation flag value
-        st.write('Predicted Cancellation Flag:', 'Authorization/Appointment will be claimed')
+        predicted_flag = 'Authorization/Appointment will be claimed'
     else:
-        st.write('Predicted Cancellation Flag:', 'Likely to get cancelled')
-    
-    # Show the submit button only if user has entered any input values
-    if st.button('Submit'):
-        # Make predictions using the machine learning model
-        prediction = model.predict(input_df)
-        if(prediction[0]==0):
-            # Display the predicted cancellation flag value
-            st.write('Predicted Cancellation Flag:', 'Authorization/Appointment will be claimed')
-        else:
-            st.write('Predicted Cancellation Flag:', 'Likely to get cancelled')
+        predicted_flag = 'Likely to get cancelled'
+
+# Display the input fields and predicted cancellation flag (if submitted)
+input_df = get_input_df()
+if show_predictions:
+    st.write('Predicted Cancellation Flag:', predicted_flag)
