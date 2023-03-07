@@ -29,7 +29,7 @@ default_values = {
 def get_input_df():
     input_dict = {}
     for field in input_fields:
-        if field.startswith('plan_option'):
+        if st.checkbox(f"Use slider for {field.replace('_', ' ').title()}"):
             input_dict[field] = st.slider(field.replace('_', ' ').title(), *plan_option_range, value=default_values[field])
         else:
             input_dict[field] = st.text_input(field.replace('_', ' ').title(), default_values[field])
