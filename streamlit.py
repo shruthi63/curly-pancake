@@ -30,8 +30,14 @@ def get_input_df():
     input_dict = {}
     for field in input_fields:
         if field.startswith('plan_option'):
-            input_dict[field] = st.slider(field.replace('_', ' ').title(), *plan_option_range, value=default_values[field])
-            input_dict[field] = st.text_input(field.replace('_', ' ').title(), default_values[field])
+            # Add slider and text box for plan option input fields
+            col1, col2 = st.beta_columns(2)
+            with col1:
+                st.write(field.replace('_', ' ').title())
+            with col2:
+                input_value = st.text_input('', default_values[field])
+                slider_value = st.slider('', *plan_option_range, value=int(input_value))
+                input_dict[field] = slider_value
         else:
             input_dict[field] = st.text_input(field.replace('_', ' ').title(), default_values[field])
     return pd.DataFrame([input_dict])
@@ -45,7 +51,7 @@ if st.button('Submit'):
     # Make predictions using the machine learning model
     prediction = model.predict(input_df)
     if(prediction[0]==0):
-    # Display the predicted cancellation flag value
+        # Display the predicted cancellation flag value
         st.write('Predicted Cancellation Flag:', 'Authorization/Appointment will be claimed')
     else:
-         st.write('Predicted Cancellation Flag:', 'Likely to get cancelled')
+        st.write('Predicted Cancellation Flag:', 'Likely to get cancelled')
