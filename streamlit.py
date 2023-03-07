@@ -33,20 +33,20 @@ def get_input_df():
             # Add slider and text box for plan option input fields
             col1, col2 = st.beta_columns(2)
             with col1:
-                st.write(field.replace('_', ' ').title())
+                st.write(field.replace('_', ' ').title(), key=field)
             with col2:
-                input_value = st.text_input('', default_values[field])
-                slider_value = st.slider('', *plan_option_range, value=int(input_value))
+                input_value = st.text_input('', default_values[field], key=field+"_text")
+                slider_value = st.slider('', *plan_option_range, value=int(input_value), key=field+"_slider")
                 input_dict[field] = slider_value
         else:
-            input_dict[field] = st.text_input(field.replace('_', ' ').title(), default_values[field])
+            input_dict[field] = st.text_input(field.replace('_', ' ').title(), default_values[field], key=field)
     return pd.DataFrame([input_dict])
 
 # Create the Streamlit app
 st.title('Claim Predictor')
 # Show the input fields by default
 show_predictions = False
-if st.button('Submit'):
+if st.button('Submit', key="submit_button"):
     show_predictions = True
     # Get user input values when submit button is clicked
     input_df = get_input_df()
